@@ -7,11 +7,7 @@ const Home = () => {
   const navigate = useNavigate()
 
   const hableLogin = () => {
-    setUser({
-        name: 'Polo',
-        email: 'polo@test.com'
-    });
-    navigate('/dashboard');
+    navigate('/login');
   };
 
   return (

@@ -1,12 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUserContext } from "../utils/useUserContext";
+import { logOut } from "../config/firebase";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   const { user, setUser } = useUserContext();
   const handleLogoff = () => {
-    setUser(false);
+    logOut();
   };
 
   return (
@@ -15,7 +16,6 @@ const Navbar = () => {
       {user && (
         <>
           <NavLink to="/Dashboard"> Dashboard</NavLink>
-          <button onClick={handleLogoff}>Logout</button>
         </>
       )}
     </nav>
