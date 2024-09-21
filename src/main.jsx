@@ -8,13 +8,17 @@ import "@fontsource/roboto/700.css";
 
 import './index.css'
 
-import {router} from './config/routes';
 import { RouterProvider } from 'react-router-dom';
+import {router} from './config/routes';
+
+import { CssBaseline } from '@mui/material';
 import UserProvider from './context/UserContext';
+import { Css } from '@mui/icons-material';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
+      <CssBaseline />
       <RouterProvider router={router} />
     </UserProvider>
   </StrictMode>

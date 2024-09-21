@@ -1,9 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { login } from "../config/firebase";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+
+import { Box } from "@mui/system";
+import { LoadingButton } from "@mui/lab";
+import { Avatar, Button, TextField, Typography } from "@mui/material";
+import PhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -46,8 +52,13 @@ const Login = () => {
   });
 
   return (
-    <>
-      <h1>Login</h1>
+    <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
+      <Avatar sx={{ mx: "auto", bgcolor: "#111" }}>
+        <PhotoIcon></PhotoIcon>
+      </Avatar>
+      <Typography variant="h5" component={"h1"}>
+        Login
+      </Typography>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={onSubmit}
@@ -62,32 +73,58 @@ const Login = () => {
           handleBlur,
           isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit}>
-            <input
+          <Box onSubmit={handleSubmit} sx={{ mt: 1 }} component="form">
+            <TextField
               type="text"
-              placeholder="Ingrese email"
+              placeholder="mail@mail.com"
               value={values.email}
               onChange={handleChange}
               name="email"
               onBlur={handleBlur}
-            ></input>
-            {errors.email && touched.email && errors.email}
-            <input
+              id="email"
+              label="Ingrese Email"
+              fullWidth
+              sx={{ mb: 3 }}
+              error={errors.email && touched.email}
+              helperText={errors.email && touched.email && errors.email}
+            />
+            <TextField
               type="password"
               placeholder="Ingrese contraseña"
               value={values.password}
               onChange={handleChange}
               name="password"
               onBlur={handleBlur}
-            ></input>
-            {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={isSubmitting}>
-              Login
-            </button>
-          </form>
+              id="password"
+              label="Ingrese contraseña"
+              fullWidth
+              sx={{ mb: 3 }}
+              error={errors.password && touched.password}
+              helperText={
+                errors.password && touched.password && errors.password
+              }
+            />
+            <LoadingButton
+            type="submit"
+            disabled={isSubmitting}
+            loading={isSubmitting}
+            variant ="contained"
+            fullWidth
+            sx={{mb:3}}
+            >
+              Acceder
+            </LoadingButton>
+
+            <Button 
+            fullWidth
+            component={Link}
+            to="/register">
+              No tienes cuenta? Registrate
+            </Button>
+          </Box>
         )}
       </Formik>
-    </>
+    </Box>
   );
 };
 
